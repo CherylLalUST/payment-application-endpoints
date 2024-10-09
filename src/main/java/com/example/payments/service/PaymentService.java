@@ -3,6 +3,7 @@ package com.example.payments.service;
 import com.example.payments.dto.Paymentdto;
 import com.example.payments.model.Payment;
 import com.example.payments.repository.PaymentRepository;
+import com.example.payments.repository.PaymentRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ import java.util.stream.Collectors;
 public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private PaymentRepositoryCustom paymentRepositoryCustom;
+
     public Payment initiatePayment(Paymentdto payment) {
         Payment p=Payment.builder()
                 .amount(payment.getAmount())
@@ -55,7 +60,7 @@ public class PaymentService {
 
     // 2. Find total amount
     public Double getTotalAmount() {
-        return paymentRepository.sumAllAmounts();
+        return paymentRepositoryCustom.sumAllAmounts();
     }
 
     // 3. Find amount by invoice number
@@ -96,4 +101,9 @@ public class PaymentService {
     public void deletePayment(String id) {
         paymentRepository.deleteById(id);
     }
+
+    public Payment getPaymentByInvoiceNumber(String invoiceNumber) {
+        return paymentRepository.findByInvoicenumber(invoiceNumber);
+    }
+
 }

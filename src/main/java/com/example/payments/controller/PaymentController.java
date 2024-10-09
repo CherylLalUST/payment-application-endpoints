@@ -5,10 +5,15 @@ import com.example.payments.model.Payment;
 import com.example.payments.service.PaymentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -62,4 +67,6 @@ public class PaymentController {
         paymentService.deletePayment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }
